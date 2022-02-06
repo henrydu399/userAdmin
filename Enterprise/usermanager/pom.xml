@@ -19,6 +19,14 @@
     <type>war</type>
  </dependency>
  
+ 
+ <dependency>
+  <artifactId>usermanagerEjb</artifactId>
+    <groupId>system.home</groupId>
+    <version>0.0.1</version>
+    <type>jar</type>
+ </dependency>
+ 
  <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
 <dependency>
     <groupId>javax</groupId>

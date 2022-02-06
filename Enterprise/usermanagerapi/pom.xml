@@ -23,12 +23,19 @@
 
   <dependencies>
   
+  <dependency>
+    <artifactId>usermanagerEjb</artifactId>
+    <groupId>system.home</groupId>
+    <version>0.0.1</version>
+  </dependency>
+  
     <dependency>
         <groupId>jakarta.platform</groupId>
         <artifactId>jakarta.jakartaee-api</artifactId>
         <version>8.0.0</version>
         <scope>provided</scope>
     </dependency>
+    
     <dependency>
         <groupId>jakarta.xml.bind</groupId>
         <artifactId>jakarta.xml.bind-api</artifactId>

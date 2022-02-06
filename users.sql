@@ -1,3 +1,12 @@
+
+drop  database if exists users;
+
+create database users;
+
+
+use users;
+
+
 /*
 Navicat MySQL Data Transfer
 
@@ -15,20 +24,6 @@ Date: 2022-01-31 15:43:44
 
 SET FOREIGN_KEY_CHECKS=0;
 
--- ----------------------------
--- Table structure for u_datos_contacto
--- ----------------------------
-DROP TABLE IF EXISTS `u_datos_contacto`;
-CREATE TABLE `u_datos_contacto` (
-  `dc_id` bigint(20) NOT NULL,
-  `dc_direccion` varchar(100) DEFAULT NULL,
-  `dc_tel_movil` varchar(50) DEFAULT NULL,
-  `dc_tel_fijo` varchar(50) DEFAULT NULL,
-  `dc_estado` bit(1) NOT NULL,
-  `dc_id_tipo_identificacion` tinyint(4) NOT NULL,
-  `dc_numero_identificacion` varchar(15) NOT NULL,
-  PRIMARY KEY (`dc_id`,`dc_id_tipo_identificacion`,`dc_numero_identificacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- ----------------------------
 -- Records of u_datos_contacto
@@ -85,10 +80,30 @@ CREATE TABLE `u_personas` (
   `P_fecha_nacimiento` date DEFAULT NULL,
   `P_hijos` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`p_id_tipo_identificacion`,`p_numero_identificacion`),
-  KEY `juz_persona_estado_civil` (`p_id_estado_civil`),
   CONSTRAINT `juz_persona_estado_civil` FOREIGN KEY (`p_id_estado_civil`) REFERENCES `u_estado_civiles` (`ec_id`) ON UPDATE CASCADE,
   CONSTRAINT `juz_persona_ibfk_1` FOREIGN KEY (`p_id_tipo_identificacion`) REFERENCES `u_tipo_documentos` (`td_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+
+
+
+
+-- ----------------------------
+-- Table structure for u_datos_contacto
+-- ----------------------------
+DROP TABLE IF EXISTS `u_datos_contacto`;
+CREATE TABLE `u_datos_contacto` (
+  `dc_id` bigint(20) NOT null AUTO_INCREMENT,
+  `dc_direccion` varchar(100) DEFAULT NULL,
+  `dc_tel_movil` varchar(50) DEFAULT NULL,
+  `dc_tel_fijo` varchar(50) DEFAULT NULL,
+  `dc_estado` bit(1) NOT NULL,
+  `dc_id_tipo_identificacion` tinyint(4) NOT NULL,
+  `dc_numero_identificacion` varchar(15) NOT NULL,
+  PRIMARY KEY (`dc_id`,`dc_id_tipo_identificacion`,`dc_numero_identificacion`),
+   CONSTRAINT `juz_datos_contacto` FOREIGN KEY (`dc_id_tipo_identificacion`,`dc_numero_identificacion`) REFERENCES `u_personas` (`p_id_tipo_identificacion`,`p_numero_identificacion`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
+
+
 
 -- ----------------------------
 -- Records of u_personas
