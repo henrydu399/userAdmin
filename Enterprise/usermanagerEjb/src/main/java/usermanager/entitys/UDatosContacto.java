@@ -32,8 +32,8 @@ public class UDatosContacto implements Serializable {
 	//bi-directional many-to-one association to UPersona
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name="dc_id_tipo_identificacion", referencedColumnName="p_id_tipo_identificacion"),
-		@JoinColumn(name="dc_numero_identificacion", referencedColumnName="p_numero_identificacion")
+		@JoinColumn(name="dc_id_tipo_identificacion", referencedColumnName="p_id_tipo_identificacion" ,  insertable = false, updatable = false),
+		@JoinColumn(name="dc_numero_identificacion", referencedColumnName="p_numero_identificacion" , insertable = false, updatable = false)
 		})
 	private UPersona UPersona;
 

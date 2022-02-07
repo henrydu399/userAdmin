@@ -22,7 +22,7 @@ public class USubFuncione implements Serializable {
 
 	//bi-directional many-to-one association to UFuncione
 	@ManyToOne
-	@JoinColumn(name="subf_id_funcion")
+	@JoinColumn(name="subf_id_funcion", insertable = false, updatable = false)
 	private UFuncione UFuncione;
 
 	public USubFuncione() {

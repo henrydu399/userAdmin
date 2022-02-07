@@ -26,8 +26,8 @@ public class UUser implements Serializable {
 	//bi-directional many-to-one association to UPersona
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name="u_id_tipo_identificacion", referencedColumnName="p_id_tipo_identificacion"),
-		@JoinColumn(name="u_numero_identificacion", referencedColumnName="p_numero_identificacion")
+		@JoinColumn(name="u_id_tipo_identificacion", referencedColumnName="p_id_tipo_identificacion" ,insertable = false, updatable = false),
+		@JoinColumn(name="u_numero_identificacion", referencedColumnName="p_numero_identificacion", insertable = false, updatable = false)
 		})
 	private UPersona UPersona;
 

@@ -57,7 +57,7 @@ public class UPersona implements Serializable {
 
 	//bi-directional many-to-one association to UTipoDocumento
 	@ManyToOne
-	@JoinColumn(name="p_id_tipo_identificacion")
+	@JoinColumn(name="p_id_tipo_identificacion" , insertable = false, updatable = false)
 	private UTipoDocumento UTipoDocumento;
 
 	//bi-directional many-to-one association to UUser
