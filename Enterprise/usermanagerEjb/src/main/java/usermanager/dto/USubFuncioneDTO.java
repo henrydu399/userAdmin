@@ -1,45 +1,23 @@
 package usermanager.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.util.List;
+import java.util.Date;
+import java.sql.Timestamp;
 import java.io.Serializable;
 
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class USubFuncioneDTO implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-
-	private USubFuncionePKDTO id;
-
-	
-	private String subfNombre;
-
-	
-	private UFuncioneDTO UFuncione;
-
-	public USubFuncioneDTO() {
-	}
-
-	public USubFuncionePKDTO getId() {
-		return this.id;
-	}
-
-	public void setId(USubFuncionePKDTO id) {
-		this.id = id;
-	}
-
-	public String getSubfNombre() {
-		return this.subfNombre;
-	}
-
-	public void setSubfNombre(String subfNombre) {
-		this.subfNombre = subfNombre;
-	}
-
-	public UFuncioneDTO getUFuncione() {
-		return this.UFuncione;
-	}
-
-	public void setUFuncione(UFuncioneDTO UFuncione) {
-		this.UFuncione = UFuncione;
-	}
+private USubFuncionePKDTO idDTO;
+private String subfNombreDTO;
+private UFuncioneDTO UFuncioneDTO;
 
 }

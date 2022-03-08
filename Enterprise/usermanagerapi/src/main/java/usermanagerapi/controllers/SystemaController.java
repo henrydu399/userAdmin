@@ -1,25 +1,46 @@
 package usermanagerapi.controllers;
 
+import java.util.List;
+
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import usermanager.builder.SystemaBuilder;
-import usermanager.ejb.ISistemaManager;
+import usermanager.dto.USistemaDTO;
+import usermanager.ejb.ISistemaManagerEJB;
+import usermanager.exceptions.UserManagerExceptions;
 
-@Path("sistema")
+
+
+
+@Path("/sistema")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class SystemaController {
 	
 	@Inject
-	ISistemaManager sistemaManager;
+	ISistemaManagerEJB sistemaManager;
 	
 	 @GET
-	 @Produces(MediaType.APPLICATION_JSON)
-	public Response  verSistemas() {
-		return Response.ok(  SystemaBuilder.getList( sistemaManager.getAll() ) ).build();
+	public Response  verSistemas() {	 
+			List<USistemaDTO> list =    sistemaManager.getSistemas() ;		
+		return Response.ok( list).build();
+	}
+	 
+	 @POST
+	public Response  crearSistema(USistemaDTO d) {	 
+			USistemaDTO dto = null;
+			try {
+				dto = sistemaManager.createSystem(d);
+			} catch (UserManagerExceptions e) {
+				return Response.status(500).build();
+			}
+		return Response.ok( dto).build();
 	}
 
 }

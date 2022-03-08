@@ -1,40 +1,77 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>system.home</groupId>
-    <artifactId>usermanagerear</artifactId>
-    <version>0.0.1</version>
-  </parent>
-  <artifactId>usermanager</artifactId>
-  <packaging>ear</packaging>
-  <name>administrador de usuarios</name>
-  
-  
-  <dependencies>
- 
- <dependency>
-  <artifactId>usermanagerapi</artifactId>
-      <groupId>system.home</groupId>
-    <version>0.0.1</version>
-    <type>war</type>
- </dependency>
- 
- 
- <dependency>
-  <artifactId>usermanagerEjb</artifactId>
-    <groupId>system.home</groupId>
-    <version>0.0.1</version>
-    <type>jar</type>
- </dependency>
- 
- <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
-<dependency>
-    <groupId>javax</groupId>
-    <artifactId>javaee-api</artifactId>
-    <version>8.0</version>
-    <scope>provided</scope>
-</dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>system.home</groupId>
+		<artifactId>usermanagerear</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	<artifactId>usermanager</artifactId>
+	<packaging>ear</packaging>
+	<name>administrador de usuarios</name>
 
- 
-  </dependencies>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>10</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<artifactId>usermanagerapi</artifactId>
+			<groupId>system.home</groupId>
+			<version>0.0.1</version>
+			<type>war</type>
+			<scope>runtime</scope>
+		</dependency>
+
+
+		<dependency>
+			<artifactId>usermanagerEjb</artifactId>
+			<groupId>system.home</groupId>
+			<version>0.0.1</version>
+			<type>ejb</type>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax/javaee-api -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>8.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<modules>
+
+						<webModule>
+							<groupId>system.home</groupId>
+							<artifactId>usermanagerapi</artifactId>
+						</webModule>
+
+						<ejbModule>
+							<groupId>system.home</groupId>
+							<artifactId>usermanagerEjb</artifactId>
+						</ejbModule>
+
+					</modules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
