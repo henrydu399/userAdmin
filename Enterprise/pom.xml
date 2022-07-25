@@ -11,9 +11,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/x
   
   
   <modules>
-  	<module>usermanagerapi</module>
+    <module>usermanagerEjb</module>
+  	<module>usermanagerapi</module>	
   	<module>usermanager</module>
-  	<module>usermanagerEjb</module>
+
   </modules>
   
   

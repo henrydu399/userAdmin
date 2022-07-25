@@ -1,0 +1,10 @@
+package usermanager.enums;
+
+public enum ErrorEnum {
+	
+	ERROR_CREANDO_ENTIDAD,
+	ERROR_MODIFICANDO_ENTIDAD,
+	ERROR_BUSCANDO_ENTIDAD,
+	ERROR_ELIMINANDO_ENTIDAD
+
+}
