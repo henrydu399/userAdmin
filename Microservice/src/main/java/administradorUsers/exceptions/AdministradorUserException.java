@@ -3,18 +3,21 @@ package administradorUsers.exceptions;
 import administradorUsers.enums.EntityEnum;
 import administradorUsers.enums.LayerEnum;
 import administradorUsers.enums.MethodsEnum;
-import administradorUsers.enums.TypeErrorEnum;
+import administradorUsers.utils.UtilGson;
+
 
 public class AdministradorUserException extends RuntimeException {
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	 private String message;
-	String tecnicalError;
-	String codeError;
-	LayerEnum layer;
+	 private static final long serialVersionUID = 1L;
+	 
+	 //private String tecnicalError;
+	// private String codeError;
+	 
+	 private AdministradorUserExceptionDto data;
+	 private String mensaje;
 	
 	
 	
@@ -22,50 +25,62 @@ public class AdministradorUserException extends RuntimeException {
 	/*
 	 * Custom contrutor for aplicatiom
 	 */
-	public AdministradorUserException(EntityEnum entidad ,MethodsEnum operacion , LayerEnum capa ,TypeErrorEnum type  ) {
-		
-		if( type != null) {
-			switch (type) {
-			case ENTITY_EXIST:
-				this.message = "[MENSAJE] : ERROR YA EXISTE   [ENTIDAD] : "+ entidad .name() + "  [OPERACION] : "+ operacion.getValueName() + " [CAPA]  : "+ capa.name() + "";
-				break;
-				
-			case ENTITY_NO_EXIST_FOR_EDITH:
-				this.message = "[MENSAJE] : ERROR NO EXISTE LA ENTIDAD   [ENTIDAD] : "+ entidad .name() + "  [OPERACION] : "+ operacion.getValueName() + " [CAPA]  : "+ capa.name() + "";
-				break;
-				
-			case ENTITY_NO_RESULT:
-				this.message = "[MENSAJE] : NO EXISTEN RESULTADOS    [ENTIDAD] : "+ entidad .name() + "  [OPERACION] : "+ operacion.getValueName() + " [CAPA]  : "+ capa.name() + "";
-				break;
-				
-			}
-		}else {
-			this.message = "[MENSAJE] : ERROR GENERAL   [ENTIDAD] : "+ entidad .name() + "  [OPERACION] : "+ operacion.getValueName() + " [CAPA]  : "+ capa.name() + "";
-		}
-
+	public AdministradorUserException(EntityEnum _entidad ,MethodsEnum _operacion , LayerEnum _layer  , String _mensaje ) {
+		data = new AdministradorUserExceptionDto();
+		this.data.layer = _layer;
+		this.data.message = _mensaje;
+		this.data.entidad = _entidad.name();
+		this.data.operacion = _operacion.getValueName();	
+			//this.message = "[MENSAJE] : "+this.buildMensaje(mensaje)+"   [ENTIDAD] : "+ entidad .name() + "  [OPERACION] : "+ operacion.getValueName() + " [CAPA]  : "+ capa.name() + "";
 		
 
-		this.layer = capa;
-		
+	}
+	
+	
 
+	
+	@Override
+    public String getMessage() {
+    	return UtilGson.SerializeObjet(data);
+    }
+
+	
+	
+	public String getMensaje() {
+		return UtilGson.SerializeObjet(data);
+	}
+
+
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+
+
+
+	public AdministradorUserExceptionDto getData() {
+		return data;
+	}
+
+
+	public void setData(AdministradorUserExceptionDto data) {
+		this.data = data;
 	}
 
 
 
 
-	public String getMessage() {
-		return message;
+
+
+
+
+
+	public static class AdministradorUserExceptionDto {
+		  String message;
+		  LayerEnum layer;
+		  String entidad;
+		  String operacion;
 	}
-
-
-
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	
-	
-	
 
 
 

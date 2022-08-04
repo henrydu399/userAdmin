@@ -20,6 +20,19 @@ public class PersonaPK implements Serializable {
 
 	public PersonaPK() {
 	}
+	
+	
+	
+	
+	public PersonaPK(String numeroIdentificacion, int idTipoIdentificacion) {
+		super();
+		this.numeroIdentificacion = numeroIdentificacion;
+		this.idTipoIdentificacion = idTipoIdentificacion;
+	}
+
+
+
+
 	public String getNumeroIdentificacion() {
 		return this.numeroIdentificacion;
 	}

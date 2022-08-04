@@ -4,6 +4,9 @@ public enum EntityEnum {
 	
 	TIPO_DOCUMENTO,
 	PERSONA,
-	USUARIO
+	USUARIO,
+	ROLES_SISTEMA,
+	SYSTEMA,
+	
 
 }

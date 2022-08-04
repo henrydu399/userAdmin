@@ -13,26 +13,26 @@ public class RolesSistemaPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="ID" , insertable=false, updatable=false)
-	private long id;
+	private Long id;
 
 	@Column(name="ID_SISTEMA", insertable=false, updatable=false)
-	private int idSistema;
+	private Long idSistema;
 
 	@Column(name="NOMBRE_ROL" , insertable=false, updatable=false)
 	private String nombreRol;
 
 	public RolesSistemaPK() {
 	}
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	public int getIdSistema() {
+	public Long getIdSistema() {
 		return this.idSistema;
 	}
-	public void setIdSistema(int idSistema) {
+	public void setIdSistema(Long idSistema) {
 		this.idSistema = idSistema;
 	}
 	public String getNombreRol() {
@@ -56,13 +56,5 @@ public class RolesSistemaPK implements Serializable {
 			&& this.nombreRol.equals(castOther.nombreRol);
 	}
 
-	public int hashCode() {
-		final int prime = 31;
-		int hash = 17;
-		hash = hash * prime + ((int) (this.id ^ (this.id >>> 32)));
-		hash = hash * prime + this.idSistema;
-		hash = hash * prime + this.nombreRol.hashCode();
-		
-		return hash;
-	}
+
 }

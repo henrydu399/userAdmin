@@ -11,21 +11,23 @@ import javax.persistence.*;
 @Entity
 @NamedQuery(name="Systema.findAll", query="SELECT s FROM Systema s")
 public class Systema implements Serializable {
-	private static final long serialVersionUID = 1L;
+
 
 	@Id
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
+	
 	private String nombre;
 
 	public Systema() {
 	}
 
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

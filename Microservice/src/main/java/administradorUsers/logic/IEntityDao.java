@@ -5,7 +5,7 @@ import java.util.List;
 
 import administradorUsers.exceptions.AdministradorUserException;
 
-public interface IAdministracionUsuarios<T> {
+public interface IEntityDao<T> {
 	
 	List<T> getAll ()throws AdministradorUserException;
 	

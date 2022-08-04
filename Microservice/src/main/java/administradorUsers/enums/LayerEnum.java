@@ -7,4 +7,5 @@ public enum LayerEnum {
 	CLIENT,
 	DAO,
 	CONVERT,
+	VALIDATE
 }
