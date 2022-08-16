@@ -1,4 +1,4 @@
-package administradorUsers.services;
+package administradorUsers.services.imp;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,10 +23,11 @@ import administradorUsers.exceptions.AdministradorUserException;
 import administradorUsers.logic.IEntityDao;
 import administradorUsers.repository.IPersonaRepository;
 import administradorUsers.repository.IUsuariosRepository;
+import administradorUsers.services.UserService;
 import administradorUsers.utils.UtilsLogs;
 
 @Service
-public class UserServiceImpl<T>  implements IEntityDao {
+public class UserServiceImpl  implements UserService {
 	
 	
 	@Autowired
@@ -56,11 +57,9 @@ public class UserServiceImpl<T>  implements IEntityDao {
 	}
 
 	@Override
-	public void save(Object obj) throws AdministradorUserException {
-		logger.info(UtilsLogs.getInfo(MethodsEnum.SAVE, EntityEnum.USUARIO ,obj));
-		try {
-			Usuario usuario =  ( Usuario ) obj;
-						
+	public void save(Usuario usuario) throws AdministradorUserException {
+		logger.info(UtilsLogs.getInfo(MethodsEnum.SAVE, EntityEnum.USUARIO ,usuario));
+		try {					
 			//BUSCAMOS SI EXISTE LA PERSONA PARA GUARDAR EL USUARIO
 			
 			Optional<Persona> p = personaRepository.findById(new PersonaPK(usuario.getId().getNumeroIdentificacion() , usuario.getId().getIdTipoIdentificacion()));
@@ -94,11 +93,10 @@ public class UserServiceImpl<T>  implements IEntityDao {
 	}
 
 	@Override
-	public void edith(Object obj) throws AdministradorUserException {
-		logger.info(UtilsLogs.getInfo(MethodsEnum.EDITH, EntityEnum.USUARIO , obj));
+	public void edith(Usuario usuario) throws AdministradorUserException {
+		logger.info(UtilsLogs.getInfo(MethodsEnum.EDITH, EntityEnum.USUARIO , usuario));
 		
-		try {
-			Usuario usuario =  ( Usuario ) obj;		
+		try {	
 			Optional<Usuario> usuarioFind = this.repository.findById(usuario.getId());	
 			if( usuarioFind.isPresent()) {
 				this.repository.save(usuario);	
@@ -123,15 +121,13 @@ public class UserServiceImpl<T>  implements IEntityDao {
 	}
 
 	@Override
-	public List<Usuario> findAll(Object obj) throws AdministradorUserException {
+	public List<Usuario> findAll(Usuario usuario) throws AdministradorUserException {
 		
-		logger.info(UtilsLogs.getInfo(MethodsEnum.FIND_CUSTOM, EntityEnum.USUARIO , obj));
+		logger.info(UtilsLogs.getInfo(MethodsEnum.FIND_CUSTOM, EntityEnum.USUARIO , usuario));
 		try {
-			Usuario usuario =  ( Usuario ) obj;
 			Example<Usuario> usuarioByFind =  Example.of(usuario); 
 			List<Usuario> list = this.repository.findAll(usuarioByFind);	
-			
-			
+				
 			if( list != null && list.size() > 0) {
 				return list;
 			}else {
@@ -154,7 +150,7 @@ public class UserServiceImpl<T>  implements IEntityDao {
 	
 	
 	@Override
-	public Usuario find(Object obj) throws AdministradorUserException {
+	public Usuario find(Usuario obj) throws AdministradorUserException {
 		
 		logger.info(UtilsLogs.getInfo(MethodsEnum.FIND_CUSTOM, EntityEnum.USUARIO ,obj));
 		try {
@@ -184,7 +180,7 @@ public class UserServiceImpl<T>  implements IEntityDao {
 	}
 
 	@Override
-	public void delete(Object p) throws AdministradorUserException {
+	public void delete(Usuario p) throws AdministradorUserException {
 		// TODO Auto-generated method stub
 		
 	}

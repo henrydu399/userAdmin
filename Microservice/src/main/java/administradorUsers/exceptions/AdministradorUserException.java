@@ -80,6 +80,7 @@ public class AdministradorUserException extends RuntimeException {
 		  LayerEnum layer;
 		  String entidad;
 		  String operacion;
+		  String status;
 	}
 
 

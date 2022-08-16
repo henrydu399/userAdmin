@@ -33,6 +33,7 @@ public class Persona implements Serializable {
 	@Column(name="`FECHA NACIMIENTO`")
 	private Date fecha_nacimiento;
 
+	@JsonIgnore
 	@Column(name="FECHA_CREACION")
 	private Timestamp fechaCreacion;
 

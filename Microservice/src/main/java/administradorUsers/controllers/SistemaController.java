@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import administradorUsers.entitys.Systema;
 import administradorUsers.exceptions.AdministradorUserException;
-import administradorUsers.services.SistemaServiceImpl;
-
+import administradorUsers.services.SistemaService;
 import administradorUsers.utils.UtilGson;
 import administradorUsers.utils.UtilsLogs;
 
@@ -36,7 +36,7 @@ public class SistemaController {
 	private String nameApp;
 	
 	@Autowired
-	private SistemaServiceImpl service;
+	private SistemaService service;
 
 	public SistemaController() {
 		logger = UtilsLogs.getLogger(SistemaController.class.getName());
@@ -44,7 +44,7 @@ public class SistemaController {
 	
 	
 	// METODO SAVE
-		@PostMapping(value = "/")
+		@PostMapping(value = "/" , produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<Object> guardar(@RequestBody Systema json, HttpServletRequest req) {
 			logger.info(nameApp + "guardar :: INICIO ");
 			logger.info(nameApp + "Request ::  " + UtilGson.SerializeObjet(json));
@@ -61,7 +61,7 @@ public class SistemaController {
 		}
 
 		// EDITAR
-		@PutMapping(value = "/")
+		@PutMapping(value = "/" , produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<Object> editar(@RequestBody Systema json, HttpServletRequest req) {
 			logger.info(nameApp + "Editar :: INICIO ");
 			logger.info(nameApp + "Request ::  " + UtilGson.SerializeObjet(json));
@@ -87,7 +87,7 @@ public class SistemaController {
 		}
 
 		// FIND CUSTUM
-		@PostMapping(value = "/findCustom")
+		@PostMapping(value = "/findCustom" , produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<Object> findCustom(@RequestBody Systema json) {
 			logger.info(nameApp + "FIND CUSTUM :: INICIO ");
 			logger.info(nameApp + "Request ::  " + UtilGson.SerializeObjet(json));
@@ -112,7 +112,7 @@ public class SistemaController {
 		}
 
 		// DELETE O DESACTIVAR
-		@PostMapping(value = "/delete")
+		@PostMapping(value = "/delete" , produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<Object> eliminar(@RequestBody Systema json) {
 			logger.info(nameApp + "DELETE O DESACTIVAR :: INICIO ");
 			logger.info(nameApp + "Request ::  " + UtilGson.SerializeObjet(json));

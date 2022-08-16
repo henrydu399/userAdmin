@@ -1,6 +1,7 @@
-package administradorUsers.services;
+package administradorUsers.services.imp;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -17,12 +18,14 @@ import administradorUsers.enums.LayerEnum;
 import administradorUsers.enums.MethodsEnum;
 import administradorUsers.exceptions.AdministradorUserException;
 import administradorUsers.logic.IEntityDao;
+import administradorUsers.logic.SistemaLogicImpl;
 import administradorUsers.repository.ISistemaRepository;
+import administradorUsers.services.SistemaService;
 import administradorUsers.utils.UtilsLogs;
 import administradorUsers.validations.SistemaValidation;
 
 @Service
-public class SistemaServiceImpl implements IEntityDao<Systema>{
+public class SistemaServiceImpl implements SistemaService{
 	
 	
 	@Autowired
@@ -30,6 +33,9 @@ public class SistemaServiceImpl implements IEntityDao<Systema>{
 	
 	@Autowired
 	private SistemaValidation validation;
+	
+	@Autowired
+	SistemaLogicImpl logic;
 
 	private Logger logger;
 	
@@ -55,6 +61,7 @@ public class SistemaServiceImpl implements IEntityDao<Systema>{
 	public void save(Systema obj) throws AdministradorUserException {
 		logger.info(UtilsLogs.getInfo(MethodsEnum.SAVE, entity ,obj));
 		try {
+			logic.save(obj);
 			validation.save(obj);
 			if(obj.getId() != null) {
 				Optional<Systema> personaFind = this.repository.findById(obj.getId());		
@@ -132,13 +139,14 @@ public class SistemaServiceImpl implements IEntityDao<Systema>{
 	
 	
 	
-	@SuppressWarnings("null")
+
 	public Systema  find(Systema obj) throws AdministradorUserException {		
 		logger.info(UtilsLogs.getInfo(MethodsEnum.FIND_CUSTOM, entity ,obj));
+		List<Systema> list = null;
 		try {
 			Example<Systema>  entByFind =  Example.of(obj); 
-			List<Systema> list = this.repository.findAll(entByFind);			
-			if( list == null && list.size() == 0) {
+			list = this.repository.findAll(entByFind);			
+			if( Objects.isNull(list)  && list.size() == 0) {
 				throw new AdministradorUserException( entity, MethodsEnum.FIND_CUSTOM, LayerEnum.DAO , ErrorConstantes.NO_SE_ECONTRARON_REGISTRO);	
 			}			
 			return list.get(0);
@@ -158,13 +166,13 @@ public class SistemaServiceImpl implements IEntityDao<Systema>{
 
 
 
-	@Override
+
 	public void delete(Systema obj) throws AdministradorUserException {
 		logger.info(UtilsLogs.getInfo(MethodsEnum.DELETE, entity ,obj));
 		try {
 			Optional<Systema> find = this.repository.findById(obj.getId());	
 			if( ! find.isPresent()) {
-				throw new AdministradorUserException( entity, MethodsEnum.EDITH, LayerEnum.LOGIC , ErrorConstantes.ERROR_SISTEMA_NO_EXISTE_EN_EL_SISTEMA);	
+				throw new AdministradorUserException( entity, MethodsEnum.DELETE, LayerEnum.LOGIC , ErrorConstantes.ERROR_SISTEMA_NO_EXISTE_EN_EL_SISTEMA);	
 			}				
 			this.repository.delete(find.get());
 		}catch (PersistenceException e) {

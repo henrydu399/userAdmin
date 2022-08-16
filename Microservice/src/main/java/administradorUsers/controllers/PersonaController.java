@@ -3,8 +3,8 @@ package administradorUsers.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,11 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import administradorUsers.entitys.Persona;
-import administradorUsers.enums.EntityEnum;
-import administradorUsers.enums.LayerEnum;
-import administradorUsers.enums.MethodsEnum;
 import administradorUsers.exceptions.AdministradorUserException;
-import administradorUsers.services.PersonaServiceImpl;
+import administradorUsers.services.PersonaService;
 import administradorUsers.utils.UtilGson;
 import administradorUsers.utils.UtilsLogs;
 
@@ -35,7 +32,7 @@ public class PersonaController {
 	private Logger logger;
 	
 	@Autowired
-	private PersonaServiceImpl personaService;
+	private PersonaService personaService;
 	
 	@Value("${spring.application.name}")
 	private String nameApp;
@@ -46,7 +43,7 @@ public class PersonaController {
 	
 	
 	// METODO SAVE
-	@PostMapping(value = "/")
+	@PostMapping(value = "/" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> guardar(@RequestBody Persona json, HttpServletRequest req) {	
 		logger.info(nameApp + " guardar :: INICIO ");
 		logger.info(nameApp + " Request ::  " + UtilGson.SerializeObjet( json));
@@ -65,7 +62,7 @@ public class PersonaController {
 		
 	
 	// EDITAR
-	@PutMapping(value = "/")
+	@PutMapping(value = "/" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> editar(@RequestBody Persona json, HttpServletRequest req) {
 		logger.info(nameApp + " Editar :: INICIO ");	
 		logger.info(nameApp + " Request ::  " + UtilGson.SerializeObjet( json));
@@ -95,7 +92,7 @@ public class PersonaController {
 	} 
 	
 	//FIND CUSTUM 
-	@PostMapping(value = "/find")
+	@PostMapping(value = "/find" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> find(@RequestBody Persona json) {
 		logger.info(nameApp + " FIND CUSTUM :: INICIO ");
 		logger.info(nameApp + " Request ::  " + UtilGson.SerializeObjet( json));
@@ -117,7 +114,7 @@ public class PersonaController {
 	
 	
 	//FIND ALL CUSTUM 
-	@PostMapping(value = "/findAll")
+	@PostMapping(value = "/findAll" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> findAll(@RequestBody Persona json) {
 		logger.info(nameApp + " FIND CUSTUM :: INICIO ");
 		logger.info(nameApp + " Request ::  " + UtilGson.SerializeObjet( json));

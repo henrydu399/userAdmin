@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import administradorUsers.entitys.Persona;
+
 import administradorUsers.entitys.Usuario;
 import administradorUsers.exceptions.AdministradorUserException;
+import administradorUsers.services.UserService;
 
-import administradorUsers.services.UserServiceImpl;
 import administradorUsers.utils.UtilGson;
 import administradorUsers.utils.UtilsLogs;
 
@@ -33,7 +34,7 @@ public class UsuarioController {
 private Logger logger;
 	
 	@Autowired
-	private UserServiceImpl<Usuario> Service;
+	private UserService Service;
 	
 	@Value("${spring.application.name}")
 	private String nameApp;
@@ -44,7 +45,7 @@ private Logger logger;
 	
 	
 	// METODO SAVE
-	@PostMapping(value = "/")
+	@PostMapping(value = "/" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> guardar(@RequestBody Usuario json, HttpServletRequest req) {	
 		logger.info(nameApp + " guardar :: INICIO ");
 		logger.info(nameApp + " Request ::  " + UtilGson.SerializeObjet( json));
@@ -63,7 +64,7 @@ private Logger logger;
 		
 	
 	// EDITAR
-	@PutMapping(value = "/")
+	@PutMapping(value = "/" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> editar(@RequestBody Usuario json, HttpServletRequest req) {
 		logger.info(nameApp + " Editar :: INICIO ");	
 		logger.info(nameApp + " Request ::  " + UtilGson.SerializeObjet( json));
@@ -93,7 +94,7 @@ private Logger logger;
 	} 
 	
 	//FIND CUSTUM 
-	@PostMapping(value = "/find")
+	@PostMapping(value = "/find" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> find(@RequestBody Usuario json) {
 		logger.info(nameApp + " FIND CUSTUM :: INICIO ");
 		logger.info(nameApp + " Request ::  " + UtilGson.SerializeObjet( json));
@@ -115,7 +116,7 @@ private Logger logger;
 	
 	
 	//FIND ALL CUSTUM 
-	@PostMapping(value = "/findAll")
+	@PostMapping(value = "/findAll" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> findAll(@RequestBody Usuario json) {
 		logger.info(nameApp + " FIND CUSTUM :: INICIO ");
 		logger.info(nameApp + " Request ::  " + UtilGson.SerializeObjet( json));

@@ -1,7 +1,6 @@
-package administradorUsers.services;
+package administradorUsers.services.imp;
 
-import java.lang.System.Logger.Level;
-import java.sql.SQLDataException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -21,12 +20,12 @@ import administradorUsers.enums.LayerEnum;
 import administradorUsers.enums.MethodsEnum;
 
 import administradorUsers.exceptions.AdministradorUserException;
-import administradorUsers.logic.IEntityDao;
 import administradorUsers.repository.IPersonaRepository;
+import administradorUsers.services.PersonaService;
 import administradorUsers.utils.UtilsLogs;
 
 @Service
-public class PersonaServiceImpl implements IEntityDao {
+public  class PersonaServiceImpl implements PersonaService {
 	
 	@Autowired
 	IPersonaRepository repository;
@@ -47,10 +46,9 @@ public class PersonaServiceImpl implements IEntityDao {
 	}
 
 	@Override
-	public void save(Object u) throws AdministradorUserException {
-		logger.info(UtilsLogs.getInfo(MethodsEnum.SAVE, EntityEnum.PERSONA ,u));
+	public void save(Persona p) throws AdministradorUserException {
+		logger.info(UtilsLogs.getInfo(MethodsEnum.SAVE, EntityEnum.PERSONA ,p));
 		try {
-			Persona p = (Persona) u;	
 			
 			Optional<Persona> personaFind = this.repository.findById(p.getId());
 			
@@ -77,14 +75,13 @@ public class PersonaServiceImpl implements IEntityDao {
 	}
 
 	@Override
-	public void edith(Object p) throws AdministradorUserException {
+	public void edith(Persona p) throws AdministradorUserException {
 		logger.info(UtilsLogs.getInfo(MethodsEnum.EDITH, EntityEnum.PERSONA ,p));
 		
 		try {
-			Persona persona = (Persona) p;		
-			Optional<Persona> personaFind = this.repository.findById(persona.getId());	
+			Optional<Persona> personaFind = this.repository.findById(p.getId());	
 			if( personaFind.isPresent()) {
-				this.repository.save(persona);	
+				this.repository.save(p);	
 			}else {
 				throw new AdministradorUserException( EntityEnum.PERSONA, MethodsEnum.EDITH, LayerEnum.LOGIC , ErrorConstantes.PERSONA_NO_EXISTE_EN_EL_SISTEMA);
 			}			
@@ -106,7 +103,7 @@ public class PersonaServiceImpl implements IEntityDao {
 	}
 
 	@Override
-	public List<Persona> findAll(Object p) throws AdministradorUserException {
+	public List<Persona> findAll(Persona p) throws AdministradorUserException {
 		
 		logger.info(UtilsLogs.getInfo(MethodsEnum.FIND_CUSTOM, EntityEnum.PERSONA ,p));
 		try {
@@ -137,7 +134,7 @@ public class PersonaServiceImpl implements IEntityDao {
 	
 	
 	@Override
-	public Persona find(Object p) throws AdministradorUserException {
+	public Persona find(Persona p) throws AdministradorUserException {
 		
 		logger.info(UtilsLogs.getInfo(MethodsEnum.FIND_CUSTOM, EntityEnum.PERSONA ,p));
 		try {
@@ -167,7 +164,7 @@ public class PersonaServiceImpl implements IEntityDao {
 	}
 
 	@Override
-	public void delete(Object p) throws AdministradorUserException {
+	public void delete(Persona p) throws AdministradorUserException {
 		// TODO Auto-generated method stub
 		
 	}

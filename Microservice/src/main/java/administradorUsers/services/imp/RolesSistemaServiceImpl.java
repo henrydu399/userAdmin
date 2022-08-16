@@ -1,4 +1,4 @@
-package administradorUsers.services;
+package administradorUsers.services.imp;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,20 +11,18 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import administradorUsers.consta.ErrorConstantes;
-import administradorUsers.entitys.Persona;
 import administradorUsers.entitys.RolesSistema;
 import administradorUsers.enums.EntityEnum;
 import administradorUsers.enums.LayerEnum;
 import administradorUsers.enums.MethodsEnum;
 import administradorUsers.exceptions.AdministradorUserException;
-import administradorUsers.logic.IEntityDao;
 import administradorUsers.logic.RolesSistemaLogicImpl;
-import administradorUsers.repository.IPersonaRepository;
 import administradorUsers.repository.IRoleSistemasRepository;
+import administradorUsers.services.RolesSistemaService;
 import administradorUsers.utils.UtilsLogs;
 
 @Service
-public class RolesSistemaServiceImpl implements IEntityDao<RolesSistema>{
+public class RolesSistemaServiceImpl implements RolesSistemaService{
 
 	@Autowired
 	IRoleSistemasRepository repository;

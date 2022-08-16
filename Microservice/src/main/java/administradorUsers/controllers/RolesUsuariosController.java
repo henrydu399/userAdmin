@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,7 @@ public class RolesUsuariosController {
 	
 	
 	// METODO SAVE
-	@PostMapping(value = "/")
+	@PostMapping(value = "/" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> guardar(@RequestBody Persona json, HttpServletRequest req) {	
 		logger.info(nameApp + "guardar :: INICIO ");
 		logger.info(nameApp + "Request ::  " + UtilGson.SerializeObjet( json));
@@ -46,7 +47,7 @@ public class RolesUsuariosController {
 		
 	
 	// EDITAR
-	@PutMapping(value = "/")
+	@PutMapping(value = "/" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> editar(@RequestBody String json, HttpServletRequest req) {
 		logger.info(nameApp + "Editar :: INICIO ");	
 		logger.info(nameApp + "Request ::  " + UtilGson.SerializeObjet( json));
@@ -64,7 +65,7 @@ public class RolesUsuariosController {
 	} 
 	
 	//FIND CUSTUM 
-	@PostMapping(value = "/findCustom")
+	@PostMapping(value = "/findCustom" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> findCustom(@RequestBody Persona json) {
 		logger.info(nameApp + "FIND CUSTUM :: INICIO ");
 		logger.info(nameApp + "Request ::  " + UtilGson.SerializeObjet( json));
