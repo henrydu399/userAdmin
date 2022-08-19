@@ -56,14 +56,14 @@ public class RolesSistema implements Serializable {
 
 	public RolesUsuario addRolesUsuarios1(RolesUsuario rolesUsuarios1) {
 		getRolesUsuarios1().add(rolesUsuarios1);
-		rolesUsuarios1.setRolesSistema1(this);
+		rolesUsuarios1.setRolesSistema(this);
 
 		return rolesUsuarios1;
 	}
 
 	public RolesUsuario removeRolesUsuarios1(RolesUsuario rolesUsuarios1) {
 		getRolesUsuarios1().remove(rolesUsuarios1);
-		rolesUsuarios1.setRolesSistema1(null);
+		rolesUsuarios1.setRolesSistema(null);
 
 		return rolesUsuarios1;
 	}

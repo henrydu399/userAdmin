@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import administradorUsers.consta.ErrorConstantes;
 import administradorUsers.entitys.Persona;
 import administradorUsers.entitys.PersonaPK;
+import administradorUsers.entitys.Systema;
 import administradorUsers.entitys.Usuario;
 import administradorUsers.enums.EntityEnum;
 import administradorUsers.enums.LayerEnum;
@@ -23,8 +24,11 @@ import administradorUsers.exceptions.AdministradorUserException;
 import administradorUsers.logic.IEntityDao;
 import administradorUsers.repository.IPersonaRepository;
 import administradorUsers.repository.IUsuariosRepository;
+import administradorUsers.services.SistemaService;
 import administradorUsers.services.UserService;
+import administradorUsers.utils.BCryptPasswordEncoder;
 import administradorUsers.utils.UtilsLogs;
+import administradorUsers.validations.UserValidation;
 
 @Service
 public class UserServiceImpl  implements UserService {
@@ -35,18 +39,22 @@ public class UserServiceImpl  implements UserService {
 	
 	@Autowired
 	IPersonaRepository personaRepository;
+	
+	@Autowired
+	UserValidation userValidation;
+	
+	@Autowired 
+	SistemaService sistemaService;
 
 	private Logger logger;
 	
-
-	
-	
+	BCryptPasswordEncoder passwordEncoder ;
 	
 
 	
 	public UserServiceImpl() {
 		logger = UtilsLogs.getLogger(UserServiceImpl.class.getName());
-		
+		this.passwordEncoder = new BCryptPasswordEncoder();
 	}
 	
 	
@@ -60,19 +68,36 @@ public class UserServiceImpl  implements UserService {
 	public void save(Usuario usuario) throws AdministradorUserException {
 		logger.info(UtilsLogs.getInfo(MethodsEnum.SAVE, EntityEnum.USUARIO ,usuario));
 		try {					
-			//BUSCAMOS SI EXISTE LA PERSONA PARA GUARDAR EL USUARIO
+
+			userValidation.save(usuario);
 			
+			
+			//#1.BUSCAMOS SI EXISTE LA PERSONA PARA GUARDAR EL USUARIO
 			Optional<Persona> p = personaRepository.findById(new PersonaPK(usuario.getId().getNumeroIdentificacion() , usuario.getId().getIdTipoIdentificacion()));
-			
-			if( p.isPresent()) {
+			if( !p.isPresent()) {
 				throw new AdministradorUserException( EntityEnum.USUARIO, MethodsEnum.SAVE, LayerEnum.DAO ,  ErrorConstantes.PERSONA_NO_EXISTE_EN_EL_SISTEMA);	
 			}
 			
-			Optional<Usuario> userFind = this.repository.findById(usuario.getId());
-			
-			if( userFind.isPresent()) {
-				throw new AdministradorUserException( EntityEnum.USUARIO, MethodsEnum.SAVE, LayerEnum.DAO ,  ErrorConstantes.USUARIO_YA_EXISTE);
+			//#2.VALIDAMOS EL SISTEMA QUE EXISTA
+			Optional<Systema> sistemaFindByName = sistemaService.findBynombre(usuario.getSistema());
+			if(!sistemaFindByName.isPresent() ) {
+				throw new AdministradorUserException( EntityEnum.USUARIO, MethodsEnum.SAVE, LayerEnum.DAO ,  ErrorConstantes.ERROR_SISTEMA_NO_EXISTE_EN_EL_SISTEMA);
 			}
+			
+			
+			//3.VALIDAMOS QUE NO EXISTA UN USUARIO CON EL EMAIL EN EL SISTEMA
+			Optional<Usuario> userFindbyEmail = this.repository.findByEmail(usuario.getEmail());
+			if( userFindbyEmail.isPresent()) {
+				 
+				throw new AdministradorUserException( EntityEnum.USUARIO, MethodsEnum.SAVE, LayerEnum.DAO ,  ErrorConstantes.USUARIO_EMAIL_YA_EXISTE);
+			}
+			
+			
+			
+			//PASSWORD ENCRIP
+			String passwordEncrip = passwordEncoder.encode(usuario.getPassword());
+			usuario.setPassword(passwordEncrip);
+			///
 				this.repository.save(usuario);
 						
 			
@@ -183,6 +208,12 @@ public class UserServiceImpl  implements UserService {
 	public void delete(Usuario p) throws AdministradorUserException {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public Optional<Usuario> findByEmail(String email) {
+		return repository.findByEmail(email);
 	}
 
 }

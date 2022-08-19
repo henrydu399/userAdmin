@@ -17,7 +17,7 @@ import administradorUsers.enums.EntityEnum;
 import administradorUsers.enums.LayerEnum;
 import administradorUsers.enums.MethodsEnum;
 import administradorUsers.exceptions.AdministradorUserException;
-import administradorUsers.logic.IEntityDao;
+
 import administradorUsers.logic.SistemaLogicImpl;
 import administradorUsers.repository.ISistemaRepository;
 import administradorUsers.services.SistemaService;
@@ -188,6 +188,11 @@ public class SistemaServiceImpl implements SistemaService{
 			throw new AdministradorUserException( entity, MethodsEnum.FIND_CUSTOM, LayerEnum.LOGIC , null);
 		}
 		
+	}
+
+
+	public Optional<Systema> findBynombre(String name) {
+		return this.repository.findBynombre(name);
 	}
 
 	

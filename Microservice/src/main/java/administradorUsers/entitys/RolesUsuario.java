@@ -61,12 +61,12 @@ public class RolesUsuario implements Serializable {
 		this.fechaCreacion = fechaCreacion;
 	}
 
-	public RolesSistema getRolesSistema1() {
+	public RolesSistema getRolesSistema() {
 		return this.rolesSistema;
 	}
 
-	public void setRolesSistema1(RolesSistema rolesSistema1) {
-		this.rolesSistema = rolesSistema1;
+	public void setRolesSistema(RolesSistema rolesSistema) {
+		this.rolesSistema = rolesSistema;
 	}
 
 

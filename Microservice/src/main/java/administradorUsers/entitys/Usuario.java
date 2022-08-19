@@ -28,6 +28,17 @@ public class Usuario implements Serializable {
 	private String movil;
 
 	private String username;
+	
+	@Column(name="PASSWORD")
+	private String password;
+	
+	
+	@Transient
+	private String token;
+	@Transient
+	private String roles;
+	@Transient
+	private String sistema;
 
 	//bi-directional many-to-one association to Persona
 	@JsonIgnore
@@ -88,5 +99,40 @@ public class Usuario implements Serializable {
 	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+
+	public String getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(String sistema) {
+		this.sistema = sistema;
+	}
+	
+	
+	
 
 }
